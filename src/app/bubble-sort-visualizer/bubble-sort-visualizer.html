@@ -1,0 +1,38 @@
+	<div class="step-description">
+		<strong *ngIf="stepDescription">Step:</strong> {{ stepDescription }}
+	</div>
+<div class="container">
+	<h2>Sortify</h2>
+		<div class="controls">
+			<button (click)="randomizeArray()" [disabled]="sorting">Randomize</button>
+			<span class="algo-select-wrapper">
+				<select class="algo-select" [(ngModel)]="algorithm" [disabled]="sorting">
+					<option value="bubble">Bubble Sort</option>
+					<option value="selection">Selection Sort</option>
+					<option value="insertion">Insertion Sort</option>
+				</select>
+			</span>
+			<button (click)="runSort()" [disabled]="sorting">Start Sorting</button>
+			<button (click)="pause()" [disabled]="!sorting || paused">Pause</button>
+			<button (click)="resume()" [disabled]="!sorting || !paused">Resume</button>
+			<button (click)="cancel()" [disabled]="!sorting">Cancel</button>
+		</div>
+		<div class="bars">
+			<div
+				class="bar"
+				*ngFor="let value of array; let i = index"
+				[style.height]="value * 2 + 'px'"
+				[class.comparing]="comparing && (i === currentI || i === currentJ)"
+				[class.swapping]="swapping && (i === currentI || i === currentJ)"
+				[class.active]="!comparing && !swapping && (i === currentI || i === currentJ)"
+				[title]="value"
+			>
+				<span class="bar-label">{{ value }}</span>
+			</div>
+		</div>
+	<div class="array-values">
+		<span *ngFor="let value of array; let i = index" [class.active]="i === currentI || i === currentJ">
+			{{ value }}
+		</span>
+	</div>
+</div>
